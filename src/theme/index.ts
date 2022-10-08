@@ -22,5 +22,6 @@ export default {
   fonts: {
     regular: 'Inter_400Regular',
     bold: 'Inter_700Bold',
+    black: 'Inter_900Black',
   },
 };
