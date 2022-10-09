@@ -28,9 +28,8 @@ type LogoTitleProps = {
 
 export const LogoTitle = styled.Text<LogoTitleProps>`
   font-family: ${({theme}) => theme.fonts.black};
-  font-size: ${RFValue(30)}px;
-  line-height: ${RFValue(30)}px;
+  font-size: ${RFValue(36)}px;
+  line-height: ${RFValue(36)}px;
   color: ${({theme, colorPurple}) =>
     colorPurple ? theme.colors.product.purpleDark : theme.colors.product.blue};
-  margin-top: ${RFValue(2)}px;
 `;
