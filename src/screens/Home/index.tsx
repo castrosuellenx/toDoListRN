@@ -1,11 +1,51 @@
 import React, {useState} from 'react';
-import {StatusBar} from 'react-native';
+import {FlatList, StatusBar} from 'react-native';
 import {useTheme} from 'styled-components/native';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
+import Task from '../../components/Task';
 import Total from '../../components/Total';
 import * as S from './styles';
+
+const tasks = [
+  {
+    id: 'd45fs5df5s1df5sf',
+    description:
+      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+    done: false,
+  },
+  {
+    id: 's6df54s1d5f1sd65',
+    description:
+      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+    done: false,
+  },
+  {
+    id: '54dsf1s5d1f54sf',
+    description:
+      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+    done: false,
+  },
+  {
+    id: 'fsd1fs54d1f5sdf',
+    description:
+      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+    done: true,
+  },
+  {
+    id: 's54fs45df54f41s',
+    description:
+      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+    done: true,
+  },
+];
+
+type TaskType = {
+  id: string;
+  description: string;
+  done: boolean;
+};
 
 const Home: React.FC = () => {
   const theme = useTheme();
@@ -42,6 +82,29 @@ const Home: React.FC = () => {
           textColor={theme.colors.product.purple}
         />
       </S.WrapperTotals>
+
+      <FlatList
+        data={[]}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}: {item: TaskType}) => <Task />}
+        ListEmptyComponent={() => (
+          <S.EmptyListContainer>
+            <S.EmptyListDivisor />
+
+            <S.EmptyListClipboard
+              source={require('../../../assets/clipboard.png')}
+            />
+
+            <S.EmptyListTitle bold>
+              Você ainda não tem tarefas cadastradas
+            </S.EmptyListTitle>
+
+            <S.EmptyListTitle>
+              Crie tarefas e organize seus itens a fazer
+            </S.EmptyListTitle>
+          </S.EmptyListContainer>
+        )}
+      />
     </S.Container>
   );
 };
