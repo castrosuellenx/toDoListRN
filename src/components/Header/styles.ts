@@ -1,6 +1,5 @@
-import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import styled from 'styled-components/native';
-import {RFValue} from 'react-native-responsive-fontsize';
+import {RFValue} from '../../utils/RFValue';
 
 export const Container = styled.View`
   height: ${RFValue(173)}px;

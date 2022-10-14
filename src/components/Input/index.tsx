@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {TextInputProps} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
-import {RFValue} from 'react-native-responsive-fontsize';
 import {useTheme} from 'styled-components/native';
 
+import {RFValue} from '../../utils/RFValue';
 import * as S from './styles';
 
 type Props = {
