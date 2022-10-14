@@ -4,6 +4,7 @@ import {useTheme} from 'styled-components/native';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
+import Total from '../../components/Total';
 import * as S from './styles';
 
 const Home: React.FC = () => {
@@ -29,21 +30,17 @@ const Home: React.FC = () => {
       </S.WrapperInput>
 
       <S.WrapperTotals>
-        <S.WrapperTotal>
-          <S.TotalLabel>Criadas</S.TotalLabel>
+        <Total
+          label="Criadas"
+          value={0}
+          textColor={theme.colors.product.blue}
+        />
 
-          <S.CircleTotalValue>
-            <S.TotalValue>0</S.TotalValue>
-          </S.CircleTotalValue>
-        </S.WrapperTotal>
-
-        <S.WrapperTotal>
-          <S.TotalLabel>Criadas</S.TotalLabel>
-
-          <S.CircleTotalValue>
-            <S.TotalValue>0</S.TotalValue>
-          </S.CircleTotalValue>
-        </S.WrapperTotal>
+        <Total
+          label="Concluídas"
+          value={0}
+          textColor={theme.colors.product.purple}
+        />
       </S.WrapperTotals>
     </S.Container>
   );
