@@ -27,6 +27,24 @@ const Home: React.FC = () => {
           handlePressAdd={() => console.log('Pressed')}
         />
       </S.WrapperInput>
+
+      <S.WrapperTotals>
+        <S.WrapperTotal>
+          <S.TotalLabel>Criadas</S.TotalLabel>
+
+          <S.CircleTotalValue>
+            <S.TotalValue>0</S.TotalValue>
+          </S.CircleTotalValue>
+        </S.WrapperTotal>
+
+        <S.WrapperTotal>
+          <S.TotalLabel>Criadas</S.TotalLabel>
+
+          <S.CircleTotalValue>
+            <S.TotalValue>0</S.TotalValue>
+          </S.CircleTotalValue>
+        </S.WrapperTotal>
+      </S.WrapperTotals>
     </S.Container>
   );
 };
