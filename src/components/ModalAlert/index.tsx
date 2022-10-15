@@ -11,7 +11,7 @@ type ModalAlertProps = {
     title: string;
     subtitle: string;
     confirmText: string;
-    cancelText: string;
+    cancelText?: string;
   };
 };
 
@@ -37,9 +37,11 @@ const ModalAlert: React.FC<ModalAlertProps> = ({
           <S.Subtitle>{data.subtitle}</S.Subtitle>
 
           <S.WrapperButtons>
-            <S.ButtonCancel onPress={handleClose}>
-              <S.ButtonCancelText>{data.cancelText}</S.ButtonCancelText>
-            </S.ButtonCancel>
+            {data.cancelText && (
+              <S.ButtonCancel onPress={handleClose}>
+                <S.ButtonCancelText>{data.cancelText}</S.ButtonCancelText>
+              </S.ButtonCancel>
+            )}
 
             <S.ButtonConfirm onPress={handleConfirm}>
               <S.ButtonConfirmText>{data.confirmText}</S.ButtonConfirmText>
