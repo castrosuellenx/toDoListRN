@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {FlatList, StatusBar} from 'react-native';
 import {useTheme} from 'styled-components/native';
+import 'react-native-get-random-values';
+import {v4 as uuidv4} from 'uuid';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
@@ -8,42 +10,36 @@ import Task, {TaskType} from '../../components/Task';
 import Total from '../../components/Total';
 import * as S from './styles';
 
-const tasks = [
-  {
-    id: 'd45fs5df5s1df5sf',
-    description:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    done: false,
-  },
-  {
-    id: 's6df54s1d5f1sd65',
-    description:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    done: false,
-  },
-  {
-    id: '54dsf1s5d1f54sf',
-    description:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    done: false,
-  },
-  {
-    id: 'fsd1fs54d1f5sdf',
-    description:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    done: true,
-  },
-  {
-    id: 's54fs45df54f41s',
-    description:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    done: true,
-  },
-];
-
 const Home: React.FC = () => {
   const theme = useTheme();
-  const [taskDescription, setTaskDescription] = useState('');
+
+  const [description, setDescription] = useState('');
+  const [tasks, setTasks] = useState<TaskType[]>([] as TaskType[]);
+
+  const handleAddNewTask = (taskDescription: string) => {
+    setTasks((prevState) => [
+      ...prevState,
+      {id: uuidv4(), description: taskDescription, done: false},
+    ]);
+  };
+
+  const handleToggleDone = (task: TaskType) => {
+    setTasks((prevState) =>
+      prevState.map((item) => {
+        if (item === task) {
+          return {
+            ...item,
+            done: !item.done,
+          };
+        }
+        return item;
+      })
+    );
+  };
+
+  const handleDelete = (task: TaskType) => {
+    setTasks((prevState) => prevState.filter((item) => item !== task));
+  };
 
   return (
     <S.Container>
@@ -57,9 +53,9 @@ const Home: React.FC = () => {
 
       <S.WrapperInput>
         <Input
-          value={taskDescription}
-          onChangeText={setTaskDescription}
-          handlePressAdd={() => console.log('Pressed')}
+          value={description}
+          onChangeText={setDescription}
+          handlePressAdd={() => handleAddNewTask(description)}
         />
       </S.WrapperInput>
 
@@ -81,7 +77,13 @@ const Home: React.FC = () => {
         <FlatList
           data={tasks}
           keyExtractor={(item) => item.id}
-          renderItem={({item}: {item: TaskType}) => <Task task={item} />}
+          renderItem={({item}: {item: TaskType}) => (
+            <Task
+              task={item}
+              handleToggleDone={() => handleToggleDone(item)}
+              handleDelete={() => handleDelete(item)}
+            />
+          )}
           ListEmptyComponent={() => (
             <S.EmptyListContainer>
               <S.EmptyListDivisor />
