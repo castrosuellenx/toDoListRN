@@ -4,6 +4,7 @@ import {useTheme} from 'styled-components/native';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 
+import {RFValue} from '../../utils/RFValue';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Task, {TaskType} from '../../components/Task';
@@ -21,10 +22,7 @@ const Home: React.FC = () => {
   const [showModalInvalidTask, setShowModalInvalidTask] = useState(false);
 
   const handleAddNewTask = useCallback((taskDescription: string) => {
-    if (
-      tasks.find((task) => task.description === taskDescription) ||
-      !taskDescription.replace(/\s/g, '')
-    ) {
+    if (!taskDescription.replace(/\s/g, '')) {
       setShowModalInvalidTask(true);
       return;
     }
@@ -83,50 +81,52 @@ const Home: React.FC = () => {
         />
       </S.WrapperInput>
 
-      <S.Content>
-        <S.WrapperTotals>
-          <Total
-            label="Created"
-            value={tasks.length}
-            textColor={theme.colors.product.blue}
-          />
-
-          <Total
-            label="Completed"
-            value={tasks.filter((task) => task.done).length}
-            textColor={theme.colors.product.purple}
-          />
-        </S.WrapperTotals>
-
-        <FlatList
-          data={tasks}
-          keyExtractor={(item) => item.id}
-          renderItem={({item}: {item: TaskType}) => (
-            <Task
-              task={item}
-              handleToggleDone={() => handleToggleDone(item)}
-              handleDelete={() => handleDelete(item)}
-            />
-          )}
-          ListEmptyComponent={() => (
-            <S.EmptyListContainer>
-              <S.EmptyListDivisor />
-
-              <S.EmptyListClipboard
-                source={require('../../../assets/clipboard.png')}
-              />
-
-              <S.EmptyListTitle bold>
-                You don't have any tasks yet
-              </S.EmptyListTitle>
-
-              <S.EmptyListTitle>
-                Create tasks and organize your to-do items
-              </S.EmptyListTitle>
-            </S.EmptyListContainer>
-          )}
+      <S.WrapperTotals>
+        <Total
+          label="Created"
+          value={tasks.length}
+          textColor={theme.colors.product.blue}
         />
-      </S.Content>
+
+        <Total
+          label="Completed"
+          value={tasks.filter((task) => task.done).length}
+          textColor={theme.colors.product.purple}
+        />
+      </S.WrapperTotals>
+
+      <FlatList
+        data={tasks}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{
+          paddingHorizontal: RFValue(24),
+          paddingBottom: RFValue(24),
+        }}
+        renderItem={({item}: {item: TaskType}) => (
+          <Task
+            task={item}
+            handleToggleDone={() => handleToggleDone(item)}
+            handleDelete={() => handleDelete(item)}
+          />
+        )}
+        ListEmptyComponent={() => (
+          <S.EmptyListContainer>
+            <S.EmptyListDivisor />
+
+            <S.EmptyListClipboard
+              source={require('../../../assets/clipboard.png')}
+            />
+
+            <S.EmptyListTitle bold>
+              You don't have any tasks yet
+            </S.EmptyListTitle>
+
+            <S.EmptyListTitle>
+              Create tasks and organize your to-do items
+            </S.EmptyListTitle>
+          </S.EmptyListContainer>
+        )}
+      />
 
       <ModalAlert
         visible={showModalDelete}
@@ -150,7 +150,7 @@ const Home: React.FC = () => {
         handleClose={() => setShowModalInvalidTask(false)}
         data={{
           title: 'Invalid task',
-          subtitle: 'Task description cannot be empty or duplicate.',
+          subtitle: 'Task description cannot be empty.',
           confirmText: 'Ok',
         }}
       />

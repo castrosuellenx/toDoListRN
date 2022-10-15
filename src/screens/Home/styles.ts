@@ -17,7 +17,7 @@ export const Content = styled.View`
 export const WrapperTotals = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin: ${RFValue(32)}px 0 ${RFValue(20)}px;
+  margin: ${RFValue(32)}px ${RFValue(24)}px ${RFValue(20)}px;
 `;
 
 export const EmptyListContainer = styled.View`
