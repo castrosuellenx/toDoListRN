@@ -4,7 +4,7 @@ import {useTheme} from 'styled-components/native';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
-import Task from '../../components/Task';
+import Task, {TaskType} from '../../components/Task';
 import Total from '../../components/Total';
 import * as S from './styles';
 
@@ -41,12 +41,6 @@ const tasks = [
   },
 ];
 
-type TaskType = {
-  id: string;
-  description: string;
-  done: boolean;
-};
-
 const Home: React.FC = () => {
   const theme = useTheme();
   const [taskDescription, setTaskDescription] = useState('');
@@ -69,42 +63,44 @@ const Home: React.FC = () => {
         />
       </S.WrapperInput>
 
-      <S.WrapperTotals>
-        <Total
-          label="Criadas"
-          value={0}
-          textColor={theme.colors.product.blue}
+      <S.Content>
+        <S.WrapperTotals>
+          <Total
+            label="Criadas"
+            value={tasks.length}
+            textColor={theme.colors.product.blue}
+          />
+
+          <Total
+            label="Concluídas"
+            value={tasks.filter((task) => task.done).length}
+            textColor={theme.colors.product.purple}
+          />
+        </S.WrapperTotals>
+
+        <FlatList
+          data={tasks}
+          keyExtractor={(item) => item.id}
+          renderItem={({item}: {item: TaskType}) => <Task task={item} />}
+          ListEmptyComponent={() => (
+            <S.EmptyListContainer>
+              <S.EmptyListDivisor />
+
+              <S.EmptyListClipboard
+                source={require('../../../assets/clipboard.png')}
+              />
+
+              <S.EmptyListTitle bold>
+                Você ainda não tem tarefas cadastradas
+              </S.EmptyListTitle>
+
+              <S.EmptyListTitle>
+                Crie tarefas e organize seus itens a fazer
+              </S.EmptyListTitle>
+            </S.EmptyListContainer>
+          )}
         />
-
-        <Total
-          label="Concluídas"
-          value={0}
-          textColor={theme.colors.product.purple}
-        />
-      </S.WrapperTotals>
-
-      <FlatList
-        data={[]}
-        keyExtractor={(item) => item.id}
-        renderItem={({item}: {item: TaskType}) => <Task />}
-        ListEmptyComponent={() => (
-          <S.EmptyListContainer>
-            <S.EmptyListDivisor />
-
-            <S.EmptyListClipboard
-              source={require('../../../assets/clipboard.png')}
-            />
-
-            <S.EmptyListTitle bold>
-              Você ainda não tem tarefas cadastradas
-            </S.EmptyListTitle>
-
-            <S.EmptyListTitle>
-              Crie tarefas e organize seus itens a fazer
-            </S.EmptyListTitle>
-          </S.EmptyListContainer>
-        )}
-      />
+      </S.Content>
     </S.Container>
   );
 };

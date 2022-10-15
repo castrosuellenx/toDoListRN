@@ -10,15 +10,18 @@ export const WrapperInput = styled.View`
   margin-top: ${RFValue(-27)}px;
 `;
 
+export const Content = styled.View`
+  padding: 0 ${RFValue(24)}px;
+`;
+
 export const WrapperTotals = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin: ${RFValue(32)}px ${RFValue(24)}px ${RFValue(20)}px;
+  margin: ${RFValue(32)}px 0 ${RFValue(20)}px;
 `;
 
 export const EmptyListContainer = styled.View`
   flex: 1;
-  padding: 0 ${RFValue(24)}px;
 `;
 
 export const EmptyListDivisor = styled.View`
