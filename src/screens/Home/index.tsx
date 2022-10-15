@@ -86,13 +86,13 @@ const Home: React.FC = () => {
       <S.Content>
         <S.WrapperTotals>
           <Total
-            label="Criadas"
+            label="Created"
             value={tasks.length}
             textColor={theme.colors.product.blue}
           />
 
           <Total
-            label="Concluídas"
+            label="Completed"
             value={tasks.filter((task) => task.done).length}
             textColor={theme.colors.product.purple}
           />
@@ -117,11 +117,11 @@ const Home: React.FC = () => {
               />
 
               <S.EmptyListTitle bold>
-                Você ainda não tem tarefas cadastradas
+                You don't have any tasks yet
               </S.EmptyListTitle>
 
               <S.EmptyListTitle>
-                Crie tarefas e organize seus itens a fazer
+                Create tasks and organize your to-do items
               </S.EmptyListTitle>
             </S.EmptyListContainer>
           )}

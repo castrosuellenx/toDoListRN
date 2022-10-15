@@ -18,7 +18,7 @@ const Input: React.FC<Props> = ({handlePressAdd, ...res}) => {
   return (
     <S.Container>
       <S.InputForm
-        placeholder="Adicione uma nova tarefa"
+        placeholder="Add a new task"
         placeholderTextColor={theme.colors.base.gray300}
         focused={focused}
         onFocus={() => setFocused(true)}
